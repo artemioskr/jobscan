@@ -1,25 +1,34 @@
-import {Builder, Capabilities, By, until, http} from 'selenium-webdriver';
-import {sendRequest} from "selenium-webdriver/http.js";
-// import { Browser, by } from 'selenidejs';
+`use strict`
+import {Builder, Capabilities, By} from 'selenium-webdriver';
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+let arr = [];
 
 const webdriver = new Builder()
-                      .withCapabilities(Capabilities.firefox())
-                      .build()
-// const browser = Browser.configuredWith()
-//     .driver(webdriver)
-//     .baseUrl('https://startup.jobs')
-//     .timeout(4000)
-//     .build();
-//
-// await browser.open('/');
-//
-// const query = browser.element(by.id('query'))
-// await query.type('qa')
-// await query.pressEnter()
-// const result = browser.all('a .leading-tight')
-//
-// console.log(result)
-await webdriver.get('https://startup.jobs/')
-const query = webdriver.findElement(By.id('query'))
-await query.sendKeys('qa');
-const req = new sendRequest()
+    .withCapabilities(Capabilities.firefox())
+    .build()
+
+async function pageRun(page = 1) {
+    const JOB = 'qa';
+    await webdriver.get(`https://startup.jobs/?q=${JOB}&page=${page}`)
+    await sleep(2000);
+
+    for (let i = 1; i < 25; i++) {
+        await webdriver.findElement(By.xpath(`/html/body/section[2]/div/div/div[2]/div[${i}]/div[1]/div/a[1]`)).getAttribute('href').then(
+            (link) => arr.push(link)
+        )
+    }
+}
+
+(async function example() {
+    for (let i = 1; i <= 4; i++) {
+        await pageRun(i);
+    }
+    console.log(arr)
+    console.log(arr.length)
+    webdriver.quit()
+})();
+
+
