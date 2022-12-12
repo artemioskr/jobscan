@@ -1,12 +1,9 @@
 `use strict`
 import {Builder, Capabilities, By} from 'selenium-webdriver';
+import {sleep} from './helpers.js'
 
 let arr = [];
 const JOB = 'qa';
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 const webdriver = new Builder()
     .withCapabilities(Capabilities.firefox())
