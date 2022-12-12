@@ -1,17 +1,18 @@
 `use strict`
 import {Builder, Capabilities, By} from 'selenium-webdriver';
 
+let arr = [];
+const JOB = 'qa';
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-let arr = [];
 
 const webdriver = new Builder()
     .withCapabilities(Capabilities.firefox())
     .build()
 
 async function pageRun(page = 1) {
-    const JOB = 'qa';
     await webdriver.get(`https://startup.jobs/?q=${JOB}&page=${page}`)
     await sleep(2000);
 
@@ -27,8 +28,8 @@ async function pageRun(page = 1) {
         await pageRun(i);
     }
     console.log(arr)
-    console.log(arr.length)
-    webdriver.quit()
+    console.log(`Собрано ${arr.length} ссылок по запросу ${JOB}`)
+    await webdriver.quit()
 })();
 
 
