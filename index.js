@@ -11,7 +11,7 @@ const LOCATION = {
     'Remote': '&remote=true'
 }
 
-const BANWORDS = ['junior', 'principal', 'head']
+const BANWORDS = ['junior', 'principal', 'head'];
 
 const webdriver = new Builder()
     .withCapabilities(Capabilities.firefox())
