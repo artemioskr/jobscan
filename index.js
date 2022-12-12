@@ -27,8 +27,7 @@ async function pageRun(page = 1, loc) {
     await sleep(2000);
 
     for (let i = 1; i < 26; i++) {
-        let xpath = `/html/body/section[2]/div/div/div[2]/div[${i}]/div[1]/div/`
-        let element = await webdriver.findElement(By.xpath(`${xpath}a[1]`))
+        let element = await webdriver.findElement(By.xpath(`/html/body/section[2]/div/div/div[2]/div[${i}]/div[1]/div/a[1]`))
 
         let append = true;
         await element.getText().then(
