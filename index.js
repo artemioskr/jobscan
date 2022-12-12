@@ -23,7 +23,7 @@ async function pageRun(page = 1) {
     }
 }
 
-(async function example() {
+(async function () {
     for (let i = 1; i <= 4; i++) {
         await pageRun(i);
     }
